@@ -11,7 +11,8 @@ test('create note works correctly', async () => {
   let browser = await puppeteer.launch({headless: false})
   let page = await browser.newPage()
   
-  const pageURL = 'http://localhost:3000/create-note';
+  const pageURL = 'https://fierce-reaches-94666.herokuapp.com/create-note';
+  // const pageURL = 'http://localhost:3000/create-note';
   await page.goto(pageURL);
 
   await page.click('#root > div > div.oneNoteHolder > input[type=text]')
@@ -29,5 +30,5 @@ test('create note works correctly', async () => {
   expect(title).toBe(note.title);
   expect(desc).toBe(note.desc);
 
-  await page.close()
+  browser.close()
 }, 160000)
