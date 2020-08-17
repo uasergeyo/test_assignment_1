@@ -12,7 +12,6 @@ test('create note works correctly', async () => {
   let page = await browser.newPage()
   
   const pageURL = 'http://localhost:3000/create-note';
-  
   await page.goto(pageURL);
 
   await page.click('#root > div > div.oneNoteHolder > input[type=text]')
@@ -23,5 +22,12 @@ test('create note works correctly', async () => {
 
   await page.click('#root > div > div.oneNoteHolder > span > button')
   await page.waitForSelector('#root > div > div.notesHolder')
-  page.close()
+  const title = await page.evaluate(() => document.querySelector('#root > div > div.notesHolder > div:last-child>h3').innerText)    
+  await page.click('#root > div > div.notesHolder > div:last-child>div.noteMenu>p:first-child')
+  const desc = await page.evaluate(()=>document.querySelector('#root > div > div.notesHolder > div:last-child > div.noteBody > p').innerText)
+
+  expect(title).toBe(note.title);
+  expect(desc).toBe(note.desc);
+
+  await page.close()
 }, 160000)
