@@ -1,9 +1,27 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import App from './App';
+const puppeteer = require('puppeteer')
+const faker = require('faker')
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+const note = {
+  title: faker.lorem.sentence(word_count = 7, supplemental = false, random_words_to_add = 0),
+  desc: faker.lorem.sentence(word_count = 74, supplemental = false, random_words_to_add = 0),
+}
+
+
+test('create note works correctly', async () => {
+  let browser = await puppeteer.launch({headless: false})
+  let page = await browser.newPage()
+  
+  const pageURL = 'http://localhost:3000/create-note';
+  
+  await page.goto(pageURL);
+
+  await page.click('#root > div > div.oneNoteHolder > input[type=text]')
+  await page.type('#root > div > div.oneNoteHolder > input[type=text]', note.title)
+
+  await page.click('#root > div > div.oneNoteHolder > textarea')
+  await page.type('#root > div > div.oneNoteHolder > textarea', note.desc)
+
+  await page.click('#root > div > div.oneNoteHolder > span > button')
+  await page.waitForSelector('#root > div > div.notesHolder')
+  page.close()
+}, 160000)

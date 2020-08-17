@@ -1,24 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Router, NavLink } from 'react-router-dom';
+import { createBrowserHistory } from "history";
+import Routes from './components/router';
+import { useTranslation } from "react-i18next";
 
-function App() {
+const history = createBrowserHistory()
+
+function App(props) {
+  const [t, i18n] = useTranslation('common');
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router history={history}>
+        <div className="headerMenu">
+          {props.location !== "/" ? <NavLink to="/">{t("links.mainPage")}</NavLink> : null}
+          {props.location !== "/create-note" ? <button onClick={() => history.push('/create-note')}>{t('buttons.createNote')}</button> : null}
+          <span onClick={() => i18n.changeLanguage('ru')}> RU </span>
+          <span onClick={() => i18n.changeLanguage('en')}> EN </span>
+        </div>
+        <Routes history={history} />
+      </Router>
     </div>
   );
 }

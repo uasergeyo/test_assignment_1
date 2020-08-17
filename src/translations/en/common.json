@@ -1,0 +1,25 @@
+{
+    "noteWasCreated":"Updated {{date}}",
+    "buttons": {
+        "createNote": "Create note",
+        "saveChanges":"Save",
+        "create":"Create note"
+    },
+    "links": {
+        "delete":"Delete note",
+        "edit": "Edit note",
+        "watchDesc":"Watch description",
+        "hideDesc":"Hide description",
+        "removed":"Deleted",
+        "mainPage":"To main page"
+    },
+    "warnings":{
+        "edit":"All fields should be filled obligatory!",
+        "note":"There are no notes here. Add one.",
+        "notFound":"Page not founded"
+    },
+    "note": {
+        "title":"Title",
+        "desc":"Description"
+    }
+}
